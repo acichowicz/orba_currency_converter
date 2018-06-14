@@ -1,4 +1,10 @@
+/**
+ * Bind events to converter buttons
+ */
 $(document).ready(function ($) {
+    /**
+     * prevent input non integer value
+     */
     $('#currency_source').on('change', function () {
         var convertSource = $('#currency_source').val();
         if (isNaN(convertSource)) {
@@ -11,6 +17,9 @@ $(document).ready(function ($) {
     });
 
 
+    /**
+     *
+     */
     $('#convert_action').click(function (e) {
         e.preventDefault();
         var convertSource = $('#currency_source').val();

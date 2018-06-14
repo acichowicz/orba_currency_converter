@@ -36,8 +36,8 @@ class IndexController extends AbstractActionController {
 			$jm->setVariable( 'target', $target );
 		} catch ( \Exception $e ) {
 			$jm->setVariable( 'success', false );
+			$jm->setVariable( 'msg', $e->getMessage() );
 		}
-
 
 		return $jm;
 	}
@@ -47,17 +47,20 @@ class IndexController extends AbstractActionController {
 	 * @param string $from
 	 * @param string $to
 	 *
-	 * @throws \HttpException
+	 * @throws \Exception
 	 */
 	private function convertCurrency( $amount, $from = 'RUB', $to = 'PLN' ) {
+		try {
+			$client = new Client();
+			$client->setAdapter( new Curl() );
+			$client->setUri( "https://free.currencyconverterapi.com/api/v5/convert?q={$from}_{$to}&compact=y" );
+			$client->send();
+			$data     = $client->getResponse();
+			$currency = json_decode( $data->getContent() );
 
-		$client = new Client();
-		$client->setAdapter( new Curl() );
-		$client->setUri( 'https://free.currencyconverterapi.com/api/v5/convert?q=RUB_PLN&compact=y' );
-		$client->send();
-		$data     = $client->getResponse();
-		$currency = json_decode( $data->getContent() );
-
-		return $amount * $currency->RUB_PLN->val;
+			return $amount * $currency->RUB_PLN->val;
+		} catch ( \Exception $e ) {
+			throw new \Exception( "Unable to convert" );
+		}
 	}
 }
