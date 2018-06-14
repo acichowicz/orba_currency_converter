@@ -5,7 +5,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Application\Controller;
+namespace CurrencyConverter\Controller;
 
 use Zend\Http\Client;
 use Zend\Http\Client\Adapter\Curl;
