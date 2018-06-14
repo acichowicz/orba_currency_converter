@@ -28,7 +28,7 @@ $(document).ready(function ($) {
             return;
         }
 
-        $.ajax('/application/convert', {
+        $.ajax('/currencyconverter/convert', {
             'method': 'POST',
             'dataType': 'json',
             'data': {

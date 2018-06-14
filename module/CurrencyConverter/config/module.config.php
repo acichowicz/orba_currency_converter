@@ -24,10 +24,10 @@ return [
 					],
 				],
 			],
-			'application' => [
+			'currencyconverter' => [
 				'type'    => Segment::class,
 				'options' => [
-					'route'    => '/application[/:action]',
+					'route'    => '/currencyconverter[/:action]',
 					'defaults' => [
 						'controller' => Controller\IndexController::class,
 						'action'     => 'index',
